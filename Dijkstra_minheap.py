@@ -87,34 +87,24 @@ class MinHeap:
 
 def Dijkstra_alg(Graph: Graph, source):
     Heap = MinHeap()
-    distance = {}
+    distance = []*len(Graph)
 
     
     for vertex in Graph:
         if vertex == source:
-            Heap.insert((vertex, 0))
-            distance[vertex] = 0
-        else:
-            Heap.insert((vertex, float('inf')))
-            distance[vertex] = float('inf')
-
-    visited = set()
-
-    while len(Heap.a)>0:
-        u, dist_u = Heap.getMin()
-        Heap.delete(u)   
-        visited.add(u)
-        
-
+            Heap.insert(vertex)
+            distance[source] = 0
+    
+    while len(Heap)>0:
+        u = Heap.getMin()
         for edge in Graph[u]:
-            v, w = edge.v, edge.w
-            if v not in visited:
-                new_dist = dist_u + w
-                if new_dist < distance[v]:
-                    Heap.decreaseKey(v, new_dist)
-
+            v = edge.v
+            w = edge.w
+            if distance[v] > distance[u] + w:
+                distance[v] = distance[u] + w
+                Heap.insert(vertex)
+    
     return distance
-        
         
         
 
