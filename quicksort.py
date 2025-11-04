@@ -35,6 +35,32 @@ def quickselect(arr, k):
             right = [x for x in arr if x>pivot]
             return quickselect(right)
 
+def weighted_median(arr):
+    lo = 0
+    hi = len(arr)
+    mid = lo + (hi-lo)//2
+
+    pivot = quickselect(arr, mid)
+    pivot_val, pivot_weight = pivot
+
+    lt_pivot, gt_pivot = Partition(arr, pivot_val)
+    lt_sum = 0
+    gt_sum = 0
+
+    for _, weight in lt_pivot:
+        lt_sum += weight
+    if lt_sum < 0.5:
+        return weighted_median(gt_pivot)
+    elif lt_sum > 0.5:
+        return weighted_median(lt_pivot)
+    else:
+        return pivot_val
+
+
+
+
+
+    
 
 def Quickselect(L, x):
     lo = 0
